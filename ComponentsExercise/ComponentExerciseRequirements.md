@@ -1,28 +1,32 @@
 # Requirements for Component Exercise
 <ul>
   <li> 
-    Application should list Women Who Code Communities
+    Application should list Women Who Code Communities. Here are currently active communities that you can add.
+    <ol>
+      <li><i>Angular</i></li>
+      <li><i>	FrontEnd</i></li>
+      <li><i>	Algorithm</i></li>
+      <li><i>	Clean Code</i></li>
+      </ol>
+      
+    
   </li>
   <li>
    Community component should display community name and allow user to add or remove to their interest. 
   </li>
   <li>
-    Create a new project using angular cli 
-    <pre>ng new <i>projectName</i> --skip-install</pre>
-  </li>
-
-  <li>
     Parent component should react to user’s interest selection. Here are few suggestions.
-    <i>-	Display number of communities users are interested in</i>
-<i>	Style interested and not interested communities differently</i>
+    <ol>
+    <li><i>Display number of communities users are interested in</i></li>
+    <li><i>	Style interested and not interested communities differently</i></li>
+    </ol>
+    
+
 
   </li>
-  <li>
-    Run your out-of-the box Angular project.
-    <pre>ng serve</pre>
-    Browse http://localhost:4200/
-  </li>
-</ul>
-![alt text](assets/sketch.png "Sketch of the page")
+ </ul>
+
+
+![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/sketch.png "Sketch of the page")
 
 
