@@ -25,6 +25,8 @@
 
   </li>
  </ul>
+
+
 ![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/sketch.png "Sketch of the page")
 
 
