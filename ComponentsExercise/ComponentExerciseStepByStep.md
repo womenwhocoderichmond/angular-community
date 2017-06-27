@@ -48,7 +48,7 @@ this.name = "Angular Community";
 ```html
 <div>{{name}}</div>
 ```
-
+![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/think.png "Think") What is the difference between contructor and ngOnInit ?
 
 ## Passing data from parent component
 
