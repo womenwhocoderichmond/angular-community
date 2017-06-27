@@ -25,6 +25,6 @@
 
   </li>
  </ul>
-![alt text](/assets/sketch.png "Sketch of the page")
+![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/sketch.png "Sketch of the page")
 
 
