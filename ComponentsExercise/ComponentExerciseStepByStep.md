@@ -32,6 +32,24 @@ Notice that in community.component.ts file, in @Component decorator the selector
 __Checkpoint: Your application should display Angular Community__
 Optional: add some css to community.component.css to add some broder and margins.
 
+## Bind the data from component to template
+
+Update community.component.html and community.component.ts files so that name of the community is set using property of CommmunityComponent Class.
+
+* Add a public property named “name” in CommunityComponent Class 
+```Typescript
+name:string;
+```
+* In ngOnInit function, set the value of name property to "Angular Community"
+```Typescript
+this.name = "Angular Community";
+```
+* Use name property in community.component.html file to display the name of the component
+```html
+<div>{{name}}</div>
+```
+
+
 ## Passing data from parent component
 
 So far our CommunityComponent class is very specific. Every consumer of this component will always get "Angular Community". We want comsumer of this component (i.e. parent component) to decide what kind of community they want. That means parent component has to pass the name of the community to CommunityComponent.
