@@ -108,6 +108,45 @@ ngOnInit() {
 ```
 __Checkpoint: Clicking button should change the text on the button.__
 
+## Use Model to hold data
+
+Our community now holds more than one form of information, its name and if current user is interested in it or not. It is a good idea to create a class that will encapsulate this information. We will add Community class and use array of Community objects instead of Array of string.
+
+* Add new folder "shared" in "app" folder. Add another folder "model" in "shared" folder. Your folder structure should look like
+
+```
+/app/shared/model/
+```
+* Add a new file named Community.ts in model folder. Add following code to Community.ts
+
+```Typescript
+export class Community {
+    isAcive:boolean;
+    memberInterested: boolean;
+    constructor(public id:number,public name:string){
+    }
+}
+```
+* Modify app.component to use Community Class. Update property communities to be an Array of Community. Update ngOnInit function to initialize this array.
+```Typescript
+private communities : Community[];
+   ngOnInit(){
+     this.communities = [
+       new Community(1,"Angular"),
+       new Community(2,"Front End"),
+       new Community(3,"Clean Code"),
+       new Community(4,"Algorithms")
+     ];
+   }
+
+```
+* Modify app.component.html. 
+```html
+<div *ngFor="let community of communities">
+       <app-community [name]="community.name"></app-community>
+ </div>
+
+```
 
 ## Pass an Event from child component to parent component
 
