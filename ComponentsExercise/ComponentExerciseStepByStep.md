@@ -48,7 +48,7 @@ this.name = "Angular Community";
 ```html
 <div>{{name}}</div>
 ```
-![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/think.png "Think") What is the difference between contructor and ngOnInit ?
+![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/think.png "Think") __What is the difference between contructor and ngOnInit ?__
 
 ## Passing data from parent component
 
@@ -93,6 +93,15 @@ export class AppComponent implements OnInit {
 <app-community *ngFor="let name of communities" name="{{name}}"<app-community>
 ```
 
+![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/think.png "Think") 
+__Does the "communities" property in AppComponent has to be 'public'?__
+
+__Will it work if we change it to 'private'?__
+
+__Try changing it to private. Make right choice for accessor__
+
+
+
 ## Property Binding 
 
 So far we have been displaying the values using {{}} syntax. This is called <i>interpolation</i>. Value inside {{ }} is calculated and results are displayed. Now let's try different way called <i>property binding</i>. 
@@ -101,6 +110,11 @@ So far we have been displaying the values using {{}} syntax. This is called <i>i
 ```html
  <app-community *ngFor="let name of communities" [name]="name"<app-community>
 ```
+
+![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/think.png "Think") 
+__If interpolation {{}} and property binding [] has same result, what is the preferred way?__ 
+
+__Are there situations when one or the other works/preferred?__
 
 ## Event Binding
 We have bind the property from our component classes to the html tags using either interpolation or property binding. Now let's try to implement event binding, i.e. functions that runs when some event happen. We will add a button and write a function that will run when the button is clicked.
