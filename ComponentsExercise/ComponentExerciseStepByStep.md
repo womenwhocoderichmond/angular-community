@@ -1,14 +1,14 @@
 # Step By Step Guide for Component Exercise
 
 * Follow Angular Setup Instruction to get project setup.
-* Update app.html
-  * Remove existing code. Add header element with Women Who Code RVA heading.
+* Update app-component.html
+  * Remove existing code. Add following code.
   ```
   <div class="wwc-container">
     <h1>Women Who Code</h1>
   </div>
   ```
-  * Add style to app-component.css to style the header.
+  * Add style to app.component.css to style the header.
 ```css
 .wwc-container {
     background-color: #1abc9c;
