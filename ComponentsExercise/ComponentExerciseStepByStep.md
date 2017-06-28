@@ -3,9 +3,14 @@
 * Follow Angular Setup Instruction to get project setup.
 * Update app.html
   * Remove existing code. Add header element with Women Who Code RVA heading.
-  * Add style to app-component.css to style the header. Use this class to style the header.
+  ```
+  <div class="wwc-container">
+    <h1>Women Who Code</h1>
+  </div>
+  ```
+  * Add style to app-component.css to style the header.
 ```css
-.wwc-header {
+.wwc-container {
     background-color: #1abc9c;
     color: #5f5f5f;
     height: 150px;
@@ -21,8 +26,11 @@
 ng generate component Community
 ```
  Notice that in addition to new files created in directory named ‘Community’, Angular CLI has also updated your app.module.ts file. Check out this file and see what’s updated
-* Update community.component.ts file
+* Update community.component.html file
   * Remove existing ```<p>``` tag and add a ```<div>``` tag with text “Angular Community”
+  ```html
+  <div>Angular Community</div>
+  ```
 * Update app.component.html file to add tag <app-community>. 
 ```html
 <app-community></app-community>
@@ -42,7 +50,9 @@ name:string;
 ```
 * In ngOnInit function, set the value of name property to "Angular Community"
 ```Typescript
-this.name = "Angular Community";
+ngOnInit() {
+    this.name = "Angular Community";
+  }
 ```
 * Use name property in community.component.html file to display the name of the component
 ```html
@@ -53,10 +63,22 @@ this.name = "Angular Community";
 ## Passing data from parent component
 
 So far our CommunityComponent class is very specific. Every consumer of this component will always get "Angular Community". We want comsumer of this component (i.e. parent component) to decide what kind of community they want. That means parent component has to pass the name of the community to CommunityComponent.
-* Modify community.component.ts file to add @Input() decorator to the name property. @Input() decorator tells Angular that our component expects the property "name" to be passed in.
+
+* Modify community.component.ts file to add @Input() decorator to the name property. @Input() decorator tells Angular that our component expects the property "name" to be passed in. You will also need to import Input from @angular/core. 
+
+```Typescript
+import { Component, OnInit, Input } from '@angular/core';
+``` 
+
 ```Typescript
 @Input()
 name:string;
+```
+* Remove initialization of name property in ngOnInit() function in community.component.ts
+```Typescript
+ngOnInit() {
+    
+  }
 ```
 * Modify app.component.html to update ```<app-community>``` tag
 ```html
@@ -78,6 +100,11 @@ __Checkpoint: You should still see same webpage. Modify name property in the app
 Angular provides *ngFor directive to iterate over list and repeatedly display an element. Let's use it to display ```<app-communities>``` tags based on the list of communities we provide.
 
 * Modify AppComponent class in app.component.ts file to add property named 'communities' and initialize in ngOnInit function.
+You will need to import OnInit from @angular/core
+
+```Typescript
+import { Component, OnInit } from '@angular/core';
+```
 
 ```Typescript
 export class AppComponent implements OnInit {
@@ -90,7 +117,7 @@ export class AppComponent implements OnInit {
 * Modify app.component.html. Replace all ```<app-communitiy>``` tags with following code
 
 ```html
-<app-community *ngFor="let name of communities" name="{{name}}"<app-community>
+<app-community *ngFor="let name of communities" name="{{name}}"></app-community>
 ```
 
 ![alt text](https://github.com/skaldate/angular-community/blob/master/ComponentsExercise/assets/think.png "Think") 
@@ -122,7 +149,10 @@ We have bind the property from our component classes to the html tags using eith
 * Modify community.component.html to add a button
 
 ```html
-<input type="button" [value]="btnValue" (click)="changeInterest()" />
+<div>
+    {{name}}
+    <input type="button" [value]="btnValue" (click)="changeInterest()" />
+</div>
 ```
 * Modify community.component.ts to add the property btnValue that will provide value to the button and method changeInterest that will run when button is clicked.
 
@@ -134,7 +164,7 @@ private btnValue:string;
 ngOnInit() {
     this.btnValue = "Add";
   }
-  changeInterest(){
+changeInterest(){
     this.btnValue = this.btnValue =="Add" ? "Remove" : "Add"; 
 }
 ```
@@ -159,9 +189,18 @@ export class Community {
     }
 }
 ```
-* Modify app.component to use Community Class. Update property communities to be an Array of Community. Update ngOnInit function to initialize this array.
+* Modify app.component to use Community Class. Update property communities to be an Array of Community. Update ngOnInit function to initialize this array. 
+
+Since you are using Communities class in AppComponent, you will need to import it.
+
 ```Typescript
-private communities : Community[];
+import { Community } from "app/shared/model/Community";
+```
+
+```Typescript
+export class AppComponent implements OnInit {
+  
+  private communities : Community[];
    ngOnInit(){
      this.communities = [
        new Community(1,"Angular"),
@@ -171,8 +210,10 @@ private communities : Community[];
      ];
    }
 
+}
+
 ```
-* Modify app.component.html. 
+* Update ```<app-community>``` tag in app.component.html. 
 ```html
 <div *ngFor="let community of communities">
        <app-community [name]="community.name"></app-community>
@@ -182,9 +223,14 @@ private communities : Community[];
 
 ## Pass an Event from child component to parent component
 
-So far there in only one way of communication between parent and child. Parent (AppComponent) is sending data to child component (CommunityComponent) and child component is displaying it. Now let’s try the communication from child to parent. Child component talk to parent by emitting events. We emit event to parent using @Output() decorator. 
+So far there is only one way of communication between parent and child. Parent (AppComponent) is sending data to child component (CommunityComponent) and child component is displaying it. Now let’s try the communication from child to parent. Child component talk to parent by emitting events. We emit event to parent using @Output() decorator. 
 
-* Add following to community.component.ts
+* Add changedInterest property to community.component.ts and decorate it as @Ouptput() event.
+You will need to import Output and EventEmitter from @angular/core
+
+```Typescript
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+```
 
 ```Typescript
 @Output()
