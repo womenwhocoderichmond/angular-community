@@ -1,0 +1,14 @@
+<!--The whole content below can be removed with the new code.-->
+<div class="wwc-container">
+    <h1>
+        Women Who Code - RVA
+    </h1>
+    <div class="list">
+        <div *ngFor="let community of communities">
+            <app-community [name]="community.name" (click)="showDetails(community)"></app-community>
+        </div>
+    </div>
+    <div class="details">
+        <app-community-detail [community]="selectedCommunity.name"> </app-community-detail>
+    </div>
+</div>
