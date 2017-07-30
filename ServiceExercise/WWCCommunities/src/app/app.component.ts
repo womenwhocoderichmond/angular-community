@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Community } from "app/shared/community.model";
 import * as CommunityDetails from "app/shared/community-details"
-import { CommunityService } from "app/shared/community.service";
 import { Person } from "app/shared/person.model";
 
 @Component({
