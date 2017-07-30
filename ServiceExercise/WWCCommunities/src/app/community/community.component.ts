@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Person } from "app/shared/person.model";
 
 @Component({
   selector: 'app-community',
@@ -7,7 +8,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CommunityComponent implements OnInit {
   @Input()
-  name:string;
+  public name:string;
+  @Input()
+  public communityId:number;
+  @Input()
+  public leader:Person;
+
   private btnValue:string;
   
   constructor() { }
