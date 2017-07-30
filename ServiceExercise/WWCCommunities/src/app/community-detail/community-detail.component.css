@@ -1,0 +1,16 @@
+.details-title {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em
+}
+
+.contact-details {
+    border-bottom: 1px black dashed;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+.details {
+    font-size: 18pt;
+    text-align: left;
+    padding: 0.1em;
+}

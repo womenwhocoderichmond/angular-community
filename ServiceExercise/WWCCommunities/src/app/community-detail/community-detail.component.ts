@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Community } from "app/shared/model/Community";
+import { Community } from "app/shared/community.model";
 
 @Component({
   selector: 'app-community-detail',
@@ -9,11 +9,11 @@ import { Community } from "app/shared/model/Community";
 export class CommunityDetailComponent implements OnInit {
   
   @Input()
-  community: string;
+  community: Community;
   constructor() { }
 
   ngOnInit() {
-    console.log("Details for "+ this.community);
+    console.log("Details for "+ this.community.name);
   }
 
 }
