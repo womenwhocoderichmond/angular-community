@@ -8,7 +8,7 @@
     
     ```
   * Application is listing Women Who Code Communities. Cliking on any communities provide details about it.
-  * Currently all the information about the communities displayed is loaded in AppComponent in app.component.ts file. We want this information to come from Angular service. Ideally service will make a http call to get this information, however, for this exericse we are going to hard-code this information.
+  * Currently all the information about the communities displayed in the application is loaded in AppComponent in app.component.ts file. We want this information to come from Angular service. Ideally, service will make a http call to get this information, however, for this exericse we are going to hard-code this information.
 
 ### Create a service
 * We will use Angular Cli to create a service. Run following command in the terminal window
@@ -53,10 +53,11 @@ private loadCommunities(){
 
 ```
 
-* In constructor use this function to populate our communities property
+* In constructor call loadCommunities function to populate our communities property
   ```Typescript
   constructor() { 
     this.communities = this.loadCommunities();
+    console.log("CommunityService created");
   }
   ```
   
@@ -70,7 +71,7 @@ private loadCommunities(){
  * For now our CommunityService is just a plain class. Angular doesn't know it is suppose to treat this class as a service. 
 To do that, we need to tell it somewhere that it is a service. There are lot of possibilites where we can tell Angular about it, for now, lets do it in a root component.
 
-* Update app.component.ts file. Replace the Component decorator with following code. Add import statement.
+* Update app.component.ts file. Add import statement and replace the Component decorator with following code. Notic the **providers** property in Compoment decorator. 
 
 ```Typescript
 import { CommunityService } from "app/shared/community.service";
@@ -82,19 +83,22 @@ import { CommunityService } from "app/shared/community.service";
   providers:[CommunityService]
 })
 ```
-* We now have provided CommunityService. It is now ready for Dependency Injection, in AppComponent
-and its child component.
 
-* Add a constructor function to app.componet.ts file. In a constructor function pass communityService as a parameter. When this component is created, Angular will pass in communityService to it.
+* We now have provided CommunityService, Angular now knows that it is a service. It is now ready for Dependency Injection, in AppComponent and its child component.
+
+* Run your application and check Console tab in developer tool of the browser. The console.log statement in the constructor of CommunityService is not there yet. It means Angular has not created the instance of CommunityService yet. 
+
+* Add a constructor function to app.componet.ts file. In a constructor function pass communityService as a parameter. When this component is created, Angular will pass in communityService instance to it.
 ```Typescript
 constructor(private communityService: CommunityService){
 }
 ```
+* Run your application and check Console tab in developer tool of the browser. You will see the console.log statement from CommunityService constructor now. Angular will not create the instance of the service unless it is injected. Once the instance of the service is created, it lasts for the lifetime on an application. Unlike Components, services doesn't get destroyed.
 
-* Replace content on ngOnInit with following code
+* Replace content on ngOnInit with following code in AppComponent in app.component.ts file
 ```Typescript
 this.communities = this.communityService.getCommunities();
 this.selectedCommunity = this.communities[0];
 ```
 
-* Check in the browser. We are now getting our communities from the CommunityService.
+* Check in the browser. Result looks the same, but we are now getting communities from CommunityService. 
