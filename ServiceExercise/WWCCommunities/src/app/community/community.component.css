@@ -1,0 +1,21 @@
+.container {
+    height: 100px;
+    width: 500px;
+    border: 2pt solid black;
+    margin-top: 20px;
+    margin-left: 70px;
+    margin-bottom: 20px;
+}
+
+.info {
+    font-size: 12pt;
+}
+
+button {
+    height: 50px;
+    width: 100px;
+    border-radius: 30px;
+    background: #1abc9c;
+    font-size: 15pt;
+    border: none;
+}
