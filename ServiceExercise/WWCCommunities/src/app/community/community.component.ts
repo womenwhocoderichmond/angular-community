@@ -23,6 +23,6 @@ export class CommunityComponent implements OnInit {
   }
   changeInterest(){
     this.btnValue = this.btnValue =="Add" ? "Remove" : "Add";
-    event.stopPropagation();
+    
   }
 }
