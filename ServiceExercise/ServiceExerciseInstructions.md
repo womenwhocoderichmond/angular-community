@@ -110,7 +110,7 @@ lifetime. If one of component make changes the state of the service, other compo
 
 (Most of the time services are intended to be singelton. It is possible to create more than one instance of it. If creating more than once instance of service was unintentional, it can cause some bugs in your application that are hard to find. We will discuss how more than one instance of a service is created in next section.)
 
-* To demostrate singelton behavior of a service let's following functionality
+* To demostrate singelton behavior of a service let's add following functionality
     When user clicks "Add" button in community component, it should show "You are a memeber" in community-details component. 
   
 * Modify community.service.ts file. Add a public property to hold selectedCommnuity and initialize it in a constructor
@@ -125,12 +125,12 @@ lifetime. If one of component make changes the state of the service, other compo
     ```
  *  Add following two functions to CommunityServicej
  ``` Typescript
- updateMembership(id:number, isMember:boolean):void{
+ public updateMembership(id:number, isMember:boolean):void{
     let index = this.communities.findIndex(x=>x.id == id);
     this.communities[index].isCurrentUserMember = isMember;
   }
 
-  updateSelectedCommunity(id: number) : void{
+  public updateSelectedCommunity(id: number) : void{
     let index = this.communities.findIndex(x=>x.id == id);
     this.selectedCommunity = this.communities[index];
   }
@@ -186,10 +186,12 @@ and passing in communityId to update and value of currentMembership.
    ng g service /shared/person 
 ```
 
-* Update newly created PersonService class in person.service.ts file. Add persons property
-
+* Update newly created PersonService class in person.service.ts file. Add a import statement and add persons property
 ```
-    private person : Person[]
+import { Person } from "app/shared/person.model";
+```
+```
+    private persons : Person[]
 ```
 * In the constructor of PersonService, initialize persons property
 
@@ -213,8 +215,12 @@ and passing in communityId to update and value of currentMembership.
 
 ``` 
 
-* Since we are going to use this service only on CommunityDetails (atleast for now), lets provide it CommunityDetailsComponent. Update
-Component decorator in community-details.component.ts file
+* Since we are going to use this service only on CommunityDetails (atleast for now), lets provide it CommunityDetailsComponent. Import PersonService and update Component decorator in community-details.component.ts file
+```
+import { PersonService } from "app/shared/person.service";
+import { Person } from "app/shared/person.model";
+```
+
 
 ```Typescript
 @Component({
@@ -244,11 +250,19 @@ Component decorator in community-details.component.ts file
     ```
     this.leader = this.personService.getPerson(this.community.leaderId);
     ```
+* Add following h4 tag to community-detail.component.html file
+```
+    <h4 *ngIf="leader != null" class="contact-details" (click)="updateCounter()">{{leader.name}}</h4> 
+```
+
 * Check your application in the browser. YOu should see, community leader name in Community Details 
 
 * Now let's say we want to display person's email in CommunityComponent. PersonService provides email, so lets try to use it in CommunityComponent. 
 
-* Update community.component.ts file to inject PersonService in CommunityComponent class
+* Add a import statement and update community.component.ts file to inject PersonService in CommunityComponent class
+```
+import { PersonService } from "app/shared/person.service";
+```
 
 ```
     constructor(private communityService: CommunityService, private personService: PersonService) { }
@@ -260,7 +274,10 @@ runtime and not at compile time.
 
 * Let's fix our error. To make this work, we have to provide the service at parent level i.e AppComponent. 
 
-* Update app.component.ts file. Add PersonService to this of providers
+* Update app.component.ts file. Add import statement and PersonService to this of providers
+```
+import { PersonService } from "app/shared/person.service";
+```
 
 ```Typescript
 @Component({
@@ -330,10 +347,13 @@ this.leaderEmail = leader != null ? leader.email : "";
 ```
 ng g service /shared/person-meetup
 ```
-* Update newly created PersonMeetup class in person-meetup.service.ts file. Add persons property
+* Update newly created PersonMeetup class in person-meetup.service.ts file. Add import statement and add persons property
+```
+import { Person } from "app/shared/person.model";
+```
 
 ```
-    private person : Person[]
+  private persons : Person[]
 ```
 * In the constructor of PersonMeetupService, initialize persons property
 
@@ -357,18 +377,21 @@ ng g service /shared/person-meetup
   ```
  Notice that the public members should match the service you are trying to override. 
  
-* In CommunityDetails we want to show meetup id instead of name. We want to override personService provided by parent component in CommunityDetailsComponent. We do that by adding following providers in Component decorator of CommunityDetailsComponent
+* In CommunityDetails we want to show meetup id instead of name. We want to override personService provided by parent component in CommunityDetailsComponent. We do that by adding following providers in Component decorator of CommunityDetailsComponent. Update community-details.component file to add import statement and modify component decorator
+```
+import { PersonMeetupService } from "app/shared/person-meetup.service";
+```
 
 ```
 @Component({
   selector: 'app-community-detail',
   templateUrl: './community-detail.component.html',
   styleUrls: ['./community-detail.component.css'],
-  providers:[{provide: PersonService, useClass:MeetupPersonService}]
+  providers:[{provide: PersonService, useClass:PersonMeetupService}]
 })
 
 ```
-* Notice the providers propery is different now. We are passing it an object specifying the name of the service to provide and class to use to instantiate that service.
+* Notice the providers property is different now. We are passing it an object specifying the name of the service to provide and class to use to instantiate that service.
 
 * Run your application. You should see meetupId for leaders in CommunityDetails page.
 
@@ -381,10 +404,14 @@ the class.
 
 * @Injectable() is to tell Angular that this class might have dependency that needs to be injected. 
 
-* For demonstration, let's say our CommunityService is dependent on PersonService. Lets try injecting it in CommunityService constuctor
+* For demonstration, let's say our CommunityService is dependent on PersonService. Lets try injecting it in CommunityService constuctor. Update community.service.ts file to add import statement andupdate the signature of constructor to following
+```
+import { PersonService } from "app/shared/person.service";
+```
 
 ```
-constructor(private personService : PersonService) { }
+constructor(private personService : PersonService) { 
+
 ```
 
 * Now if you remove @Injectable() from CommunityService, it will throw an error. Though @Injectable is needed only when you are injecting a dependecny in a service, Angular community recommends adding it to service all the time.
@@ -406,6 +433,9 @@ export const communityServiceFactory = (personService: PersonService) =>{
 
 ```
 * To use the factoryPattern update providers in AppComponent with following code. **useFactory** will hold name of function that is used to create a factory. deps array hold any dependecies that CommunityService has.
+```
+import { communityServiceFactory } from "app/shared/community.service.factory";
+```
 
 ```
 @Component({
@@ -419,13 +449,18 @@ export const communityServiceFactory = (personService: PersonService) =>{
 
 * Now if you run your application, you will see log statement "Using CommunityServiceFactory to create CommunityService instance".
 
-* Update CommunityDetailsComponent decoratoer with following code. We are providing another instance of CommunityService to CommunityDetailsComponent
+* Update CommunityDetailsComponent decoratoer with following code. We are providing another instance of CommunityService to CommunityDetailsComponent.
+```
+import { CommunityService } from "app/shared/community.service";
+import { communityServiceFactory } from "app/shared/community.service.factory";
+```
+
 ```
 @Component({
   selector: 'app-community-detail',
   templateUrl: './community-detail.component.html',
   styleUrls: ['./community-detail.component.css'],
-  providers:[{provide: PersonService, useClass:MeetupPersonService},
+  providers:[{provide: PersonService, useClass:PersonMeetupService},
     {provide:CommunityService, useFactory: communityServiceFactory, deps:[PersonService] }
   ]
 })
@@ -433,9 +468,18 @@ export const communityServiceFactory = (personService: PersonService) =>{
 ```
 
 * Since CommunityDetailsComponent is using a MeetupPersonService as PersonService, our community.service.factory will use * MeetupPersonService to create new CommunityService object
-  
+
+* Inject CommunityService in CommunityDetailComponent so that instance of communityService is created. Update community-detail.component.ts file and replace construcotr function with following.
+
+```
+ constructor(private personService:PersonService, private communityService: CommunityService) { }
+```
+
 * Add following console.log statement in CommunityService constructor to see it working. 
 console.log(this.personService.getPerson(0).name);
+
+* You will see in log that two instance of CommunityService are created, one using PersonService that and other using PersonMeetupService.
+
 
 ### Recap ###
 * Services are singelton.
