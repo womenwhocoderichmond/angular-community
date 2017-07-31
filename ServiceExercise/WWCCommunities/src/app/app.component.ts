@@ -24,20 +24,19 @@ export class AppComponent implements OnInit {
 
    private loadCommunities(){
     let angular = new Community(1,"Angular", CommunityDetails.angularCommunityDetails);
-    angular.leader = new Person("Shradha Kaldate", "shradha.kaldate@gmail.com")
+    angular.leaderId = 0;
    
     let frontEnd = new Community(2,"Front End", CommunityDetails.frontEndCommunityDetails);
-    frontEnd.leader = new Person("Liz Swain","liz@frontEndWiz.com");
+    frontEnd.leaderId = 1;
     
     let cleanCode = new Community(3,"Clean Code", CommunityDetails.cleanCodeCommunityDetails);
     
     let algorithm = new Community(4,"Algorithms", CommunityDetails.algorithmsCommunityDetails);
-    algorithm.leader = new Person("Rachel Dorn", "algorithm_gal@coder.com");
+    algorithm.leaderId = 2;
    
     let java = new Community(5, "Java", CommunityDetails.javaCommunityDetails);
-    java.leader = new Person("Debra Duke", "theProfessor@vcu.com");
+    java.leaderId = 3
    
     return [angular,frontEnd,algorithm,cleanCode,java ];
   }
-
 }
