@@ -102,3 +102,69 @@ this.selectedCommunity = this.communities[0];
 ```
 
 * Check in the browser. Result looks the same, but we are now getting communities from CommunityService. 
+
+### Service is a Singelton
+
+* Services are singelton, i.e only one instance of it is available and it lasts the application
+lifetime. If one of component make changes the state of the service, other component making use of same service can get that information. 
+
+(Most of the time services are intended to be singelton. It is possible to create more than one instance of it. If creating more than once instance of service was unintentional, it can cause some bugs in your application that are hard to find. We will discuss how more than one instance of a service is created in next section.)
+
+* To demostrate singelton behavior of a service let's following functionality
+    When user clicks "Add" button in community component, it should show "You are a memeber" in community-details component. 
+  
+* Modify community.service.ts file. Add a public property to hold selectedCommnuity and initialize it in a constructor
+    ```Typescript
+    public selectedCommunity: Community
+    
+    constructor(){
+        this.communities = this.loadCommunitities();
+        this.selectedCommunity = this.communities[0];
+    }
+    
+    ```
+ *  Add following two functions to CommunityServicej
+ ``` Typescript
+ updateMembership(id:number, isMember:boolean):void{
+    let index = this.communities.findIndex(x=>x.id == id);
+    this.communities[index].isCurrentUserMember = isMember;
+  }
+
+  updateSelectedCommunity(id: number) : void{
+    let index = this.communities.findIndex(x=>x.id == id);
+    this.selectedCommunity = this.communities[index];
+  }
+
+ ```
+ *  In app.component.ts file, use communityService to initialize selectedCommunity. Update OnInit function modify the line that initialize selectedCommunity 
+ 
+ ``` Typescript
+    this.selectedCommunity = this.communityService.selectedCommunity;
+ ```
+ * In app.component.ts, update showDetails function with following code
+ 
+ ```Typescript
+    this.communityService.updateSelectedCommunity(item.id);
+    this.selectedCommunity = this.communityService.selectedCommunity;
+ ```
+ 
+ * Use CommnuityService to update currentUserMembership information for a community in CommunityComponent. Update community.component.ts file. Add a import statement and inject CommunityService in a constructor
+ 
+ ```Typescript
+    import { CommunityService } from "app/shared/community.service";
+    
+    constructor(private communityService: CommunityService) { }
+ ```
+ 
+ * Add following code to changeInterest method community.component.ts file. We are calling updateMembership
+and passing in communityId to update and value of currentMembership.
+
+ ```Typescript
+    this.communityService.updateMembership(this.communityId,this.btnValue=="Remove");
+ 
+ ```
+ 
+ 
+
+
+
