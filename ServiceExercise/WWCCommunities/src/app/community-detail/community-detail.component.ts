@@ -6,7 +6,7 @@ import { Community } from "app/shared/community.model";
   templateUrl: './community-detail.component.html',
   styleUrls: ['./community-detail.component.css']
 })
-export class CommunityDetailComponent implements OnInit {
+export class CommunityDetailComponent implements OnInit, OnChanges {
   
   @Input()
   community: Community;
@@ -15,5 +15,5 @@ export class CommunityDetailComponent implements OnInit {
   ngOnInit() {
     console.log("Details for "+ this.community.name);
   }
-
+  ngOnChanges(){}
 }
