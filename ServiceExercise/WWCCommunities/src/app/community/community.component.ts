@@ -12,7 +12,7 @@ export class CommunityComponent implements OnInit {
   @Input()
   public communityId:number;
   @Input()
-  public leader:Person;
+  public leaderId:string;
 
   private btnValue:string;
   
