@@ -1,0 +1,38 @@
+.wwc-container {
+    background-color: #1abc9c;
+    color: #5f5f5f;
+    height: 150px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 60px;
+    font-size: 35pt;
+    font-family: cursive;
+}
+
+input {
+    width: 350px;
+    height: 50px;
+    font-size: 30px;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+button {
+    height: 50px;
+    widows: 80px;
+    font-size: 20px;
+    background-color: #1abc9c;
+}
+
+.error {
+    text-align: left;
+    color: red;
+    font-size: 31px;
+    padding-left: 134px;
+}
+
+.userInfoContainer {
+    display: flex;
+    flex-direction: row;
+}
