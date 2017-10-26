@@ -1,0 +1,9 @@
+<div class="wwc-container">
+    <h1>
+        {{title}}
+    </h1>
+    <input type="text" name="gitUserName" [(ngModel)]="gitUserName" placeholder="Enter Git User Name">
+    <button (click)="getInfo()">Get Info</button>
+    <div class="error" *ngIf="isError">User not found</div>
+    <app-git-users [gitUsers]="gitUsers"></app-git-users>
+</div>

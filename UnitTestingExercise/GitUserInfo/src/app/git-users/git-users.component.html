@@ -1,0 +1,9 @@
+<div *ngFor="let gitUser of gitUsers" class="userInfoContainer">
+    <div>
+        <img [src]="gitUser.ImageUrl " />
+    </div>
+    <div>
+        <p>Name: {{gitUser.Name }}</p>
+        <p>Number of Public Repos: {{gitUser.NumberOfPublicRepos}} </p>
+    </div>
+</div>
