@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { GitUserService } from "app/shared/git-user.service";
 import { GitUsersComponent } from './git-users/git-users.component';
+import { UsernameFormatService } from "app/shared/username-format.service";
+import { HttpModule } from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -16,9 +18,9 @@ import { GitUsersComponent } from './git-users/git-users.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpModule
   ],
-  providers: [GitUserService],
+  providers: [GitUserService, UsernameFormatService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
