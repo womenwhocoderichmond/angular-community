@@ -1,4 +1,4 @@
 # Welcome to the Angular Community
 
 
-Repo under construction.
+Community looking for leads! 
